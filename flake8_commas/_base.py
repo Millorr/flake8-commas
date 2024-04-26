@@ -249,7 +249,7 @@ def get_comma_errors(tokens):
         if token.type == UNPACK:
             stack[-1] = stack[-1]._replace(unpack=True)
 
-        comma_allowed = token.type in CLOSING and (
+        comma_allowed = token.type in CLOSING and stack and (
             stack[-1].comma or
             stack[-1].comma in TUPLE_ISH and stack[-1].n >= 1
         )
@@ -303,9 +303,9 @@ def get_comma_errors(tokens):
 
         pop_stack = (
             token.type in CLOSING or
-            (token.type == COLON and stack[-1].comma == LAMBDA_EXPR)
+            (token.type == COLON and stack and stack[-1].comma == LAMBDA_EXPR)
         )
-        if pop_stack:
+        if pop_stack and stack:
             stack.pop()
 
 
