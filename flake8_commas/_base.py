@@ -254,7 +254,7 @@ def get_comma_errors(tokens):
             stack[-1].comma in TUPLE_ISH and stack[-1].n >= 1
         )
 
-        comma_prohibited = prev_1.type == COMMA and (
+        comma_prohibited = prev_1.type == COMMA and stack and (
             (
                 comma_allowed and
                 (stack[-1].comma not in TUPLE_ISH or stack[-1].n > 1)
