@@ -243,7 +243,7 @@ def get_comma_errors(tokens):
         if token.type == FOR:
             stack[-1] = context()
 
-        if token.type == COMMA:
+        if token.type == COMMA and stack:
             stack[-1] = stack[-1]._replace(n=stack[-1].n + 1)
 
         if token.type == UNPACK:
